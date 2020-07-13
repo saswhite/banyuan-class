@@ -11,7 +11,7 @@
 11. plate *
 12. plate + apple
 13. bento ~ plate
-14. plate >apple
+14. plate > apple
 15. orange:first-child
 16. apple:only-child, plate pickle:only-child
 17. apple.small, pickle.small
