@@ -9,7 +9,7 @@ a1.a2.a3.a4.a5.a6.a7.a8.a9.a10.a11
 #x34y                               
 li:first-child h2 .title            
 #nav .selected > a:hover            
-html body #nav .selected > a:hover  
+html body #nav .selected >  a:hover  
 1.(0,0,1)
 2.(0,0,2) 
 3.(0,0,3)
