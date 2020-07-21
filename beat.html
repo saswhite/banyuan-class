@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            display: block;
+            margin: 8px;
+        }
+        html {
+        font-size: 10px;
+        background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585723706887&di=adba44e189de82f2c7cad6e966e57e79&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farchive%2Fdd49d7fc7a1657002082be59cade09aab60dc9a3.jpg")no-repeat;
+        background-size: cover;
+        }   
+
+        .keys {        
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        }
+        .container {
+          width: 100%;
+          height: 100px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          padding-left: 100px;
+          box-sizing: border-box;
+        }
+        .key {
+          float: left;
+          border: 4px solid black;
+          border-radius: 5px;
+          margin: 10px;
+          font-size: 15px;
+          padding: 10px 5px;
+          transition: all .07s ease;
+          width: 100px;
+          text-align: center;
+          color: white;
+          background: rgba(0,0,0,0.4);
+          text-shadow: 0 0 5px black;
+        }
+
+        .playing {
+        transform: scale(1.1);
+        border-color: #ffc600;
+        box-shadow: 0 0 10px #ffc600;
+        }
+
+        kbd {
+        display: block;
+        font-size: 40px;
+        }
+
+        .sound {
+        font-size: 12pxs;
+        text-transform: uppercase;
+        letter-spacing:  1px;
+        color: #ffc600;
+        }
+    </style>
+</head>
+<body>
+    <div class="keys">
+      <div class="container">
+        <div data-key="65" class="key">
+          <kbd>A</kbd>
+          <span class="sound">clap</span>
+        </div>
+        <div data-key="83" class="key">
+          <kbd>S</kbd>
+          <span class="sound">hihat</span>
+        </div>
+        <div data-key="68" class="key">
+          <kbd>D</kbd>
+          <span class="sound">kick</span>
+        </div>
+        <div data-key="70" class="key">
+          <kbd>F</kbd>
+          <span class="sound">openhat</span>
+        </div>
+        <div data-key="71" class="key">
+          <kbd>G</kbd>
+          <span class="sound">boom</span>
+        </div>
+        <div data-key="72" class="key">
+          <kbd>H</kbd>
+          <span class="sound">ride</span>
+        </div>
+        <div data-key="74" class="key">
+          <kbd>J</kbd>
+          <span class="sound">snare</span>
+        </div>
+        <div data-key="75" class="key">
+          <kbd>K</kbd>
+          <span class="sound">tom</span>
+        </div>
+        <div data-key="76" class="key">
+          <kbd>L</kbd>
+          <span class="sound">tink</span>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
