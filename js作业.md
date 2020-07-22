@@ -61,7 +61,7 @@
 
    ```js
    var a = 1;
-       var n = 10;
+       var n = 9;
        while(n > 0){
            n--;
            a=(a+1)*2;
