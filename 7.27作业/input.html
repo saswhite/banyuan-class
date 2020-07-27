@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      input,
+      button {
+        outline: none;
+        border: none;
+      }
+      .form {
+        width: 1000px;
+        height: 600px;
+        margin: 0 auto;
+        background-color: #f7f7f7;
+        border: 1px solid #ebebeb;
+        color: #8c8d8c;
+      }
+      .title {
+        height: 120px;
+        line-height: 120px;
+        border-bottom: 1px solid #ebebeb;
+        font-weight: 200;
+        padding-left: 50px;
+      }
+      .input {
+        margin-top: 65px;
+      }
+      .username {
+        margin-left: 200px;
+        margin-bottom: 50px;
+      }
+      .password {
+        margin-left: 171px;
+        margin-bottom: 100px;
+      }
+      .user {
+        display: inline-block;
+        padding-left: 10px;
+        height: 50px;
+        width: 500px;
+        font-size: 24px;
+        color: #8c8d8c;
+        border: 1px solid #ebebeb;
+      }
+      .user::placeholder {
+        font-size: 16px;
+      }
+      .pwd {
+        display: inline-block;
+        height: 50px;
+        width: 500px;
+        font-size: 20px;
+        color: #8c8d8c;
+        border: 1px solid #ebebeb;
+      }
+      .btn {
+        width: 120px;
+        height: 40px;
+        margin-left: 300px;
+        background-color: #d47b77;
+        color: #fff;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" class="form" onsubmit="return false">
+      <div class="title">
+        <h1>表单</h1>
+      </div>
+      <div class="input">
+        <div class="username">
+          Your Name :
+          <input type="username" placeholder="Your Full Name" class="user" />
+        </div>
+        <div class="password">
+          Your Password :
+          <input type="password" class="pwd" />
+        </div>
+      </div>
+      <button type="submit" class="btn">
+        send
+      </button>
+    </form>
+  </body>
+  <script>
+    var flag_user = true;
+    var flag_pwd = true;
+    var username = document.getElementsByClassName("user")[0];
+    var password = document.getElementsByClassName("pwd")[0];
+    var btn = document.getElementsByClassName("btn")[0];
+    var userTag = document.createElement("p");
+    userTag.style.color = "red";
+    userTag.style.marginLeft = "200px";
+    userTag.style.marginBottom = "10px";
+    var input = document.getElementsByClassName("input")[0];
+    input.appendChild(userTag);
+    userTag.innerHTML =
+      "用户名格式错误,应为4到16位，包含字母，数字，下划线，减号";
+    userTag.style.display = "none";
+    var pwdTag = document.createElement("p");
+    pwdTag.style.color = "red";
+    pwdTag.style.marginLeft = "200px";
+    pwdTag.style.marginBottom = "20px";
+    var input = document.getElementsByClassName("input")[0];
+    input.appendChild(pwdTag);
+    pwdTag.innerHTML = "密码格式错误,应为8到15位，包含字母，数字，下划线";
+    pwdTag.style.display = "none";
+    btn.addEventListener("click", function () {
+      var user_pattern = /[a-zA-Z0-9_-]{4,16}/;
+      flag_user = user_pattern.test(username.value);
+      var pwd_pattern = /\w{8,15}/;
+      flag_pwd = pwd_pattern.test(password.value);
+      if (flag_user === false) {
+        userTag.style.display = "block";
+        username.value = "";
+        flag_user = true;
+      } else {
+        username.value = "";
+        userTag.style.display = "none";
+        flag_user = false;
+      }
+      if (flag_pwd === false) {
+        pwdTag.style.display = "block";
+        password.value = "";
+        flag_pwd = true;
+      } else {
+        password.value = "";
+        pwdTag.style.display = "none";
+        flag_pwd = false;
+      }
+    });
+  </script>
+</html>
