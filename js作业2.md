@@ -12,6 +12,10 @@
    var b =  Number(prompt("请输入第而个数："))
    console.log(remainder(a,b));
    ```
+<<<<<<< HEAD
+=======
+   
+>>>>>>> d610dd532cefb172ee01d595f0d174598dba0a50
 
    
 
@@ -88,4 +92,8 @@
    console.log(sum);
    ```
 
+<<<<<<< HEAD
    
+=======
+   
+>>>>>>> d610dd532cefb172ee01d595f0d174598dba0a50
