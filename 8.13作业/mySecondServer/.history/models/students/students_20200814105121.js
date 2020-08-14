@@ -1,0 +1,1 @@
+const { studentsModel } = require('../models/students')
