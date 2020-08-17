@@ -1,0 +1,105 @@
+<div>
+    姓名:
+    <input type="text" class="name"/>
+</div>
+
+<div>
+    性别:
+    <select class="gender">
+        <option value="0">女</option>
+        <option value="1">男</option>
+    </select>
+</div>
+
+<div>
+    年龄:
+    <input type="text" class="age"/>
+</div>
+
+<div>
+    学科:
+    <select class='major'>
+        <option value="web">web</option>
+        <option value="java">java</option>
+    </select>
+</div>
+
+<div>
+
+    <button class="btn">提交</button>
+</div>
+
+<div class='student-list'>
+
+    {% for item in students %}{% endfor %}
+</div>
+
+<script src="js/jQuery.js"></script>
+<script>
+    //selector
+
+    //input
+    let inputName = document.getElementsByClassName('name')[0];
+    let inputAge = document.getElementsByClassName('age')[0];
+
+    //button
+    let btn = document.getElementsByClassName('btn')[0];
+
+    //
+    let studentLabel = document.getElementsByClassName('student-list')[0]
+
+    //按钮提交
+    function submit() {
+        let selectorGender = document.getElementsByClassName('gender')[0];
+        let genderIndex = selectorGender.selectedIndex;
+        let gender = selectorGender.options[genderIndex];
+        let genderValue = gender.value;
+
+        let selectorMajor = document.getElementsByClassName('major')[0];
+        let majorIndex = selectorMajor.selectedIndex;
+        let major = selectorMajor.options[majorIndex];
+        let majorValue = major.value;
+        let nameValue = inputName.value;
+        let ageValue = inputAge.value;
+        const url = 'http://localhost:3000/button'
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {
+                name: nameValue,
+                age: ageValue,
+                gender: genderValue,
+                major: majorValue
+            },
+            success: (result) => {
+                let boxE = document.getElementsByClassName('box')
+                for (let i = 0; i < boxE.length; i++) {
+                    if (boxE[i]) {
+                        boxE[i].remove()
+                    }
+                }
+                result.forEach((item) => {
+
+                    let box = document.createElement('div')
+                    let gender = ""
+                    if (item.gender == 0) {
+                        gender = '女'
+                    } else if (item.gender == 1) {
+                        gender = '男'
+                    }
+                    let string = item.name + " " + gender + " " + item.age + "岁 学习" + item.major;
+                    box.innerHTML = string
+                    box.className = 'box'
+                    studentLabel.append(box)
+
+                })
+
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        })
+    }
+
+    btn.onclick = submit;
+</script>

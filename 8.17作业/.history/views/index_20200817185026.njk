@@ -1,0 +1,135 @@
+<div>
+    姓名:
+    <input type="text" class="name"/>
+</div>
+
+<div>
+    性别:
+    <select class="gender">
+        <option value="0">女</option>
+        <option value="1">男</option>
+    </select>
+</div>
+
+<div>
+    年龄:
+    <input type="text" class="age"/>
+</div>
+
+<div>
+    学科:
+    <select class='major'>
+        <option value="web">web</option>
+        <option value="java">java</option>
+    </select>
+</div>
+
+<div>
+
+    <button class="btn">提交</button>
+</div>
+
+<div>
+    选择显示男还是女:
+    <select class="select-gender">
+        <option value="0">女</option>
+        <option value="1">男</option>
+    </select>
+</div>
+
+<div class='student-list'>
+
+    {% for item in students %}
+        <span>{{item.name}}</span>
+        <span>{{item.gender}}</span>
+        <span>{{item.age}}岁</span>
+        <sapn>学习{{item.major}}</span>
+        <br>
+    {% endfor %}
+</div>
+
+<script src="js/jQuery.js"></script>
+<script>
+    //selector
+
+    //input
+    let inputName = document.getElementsByClassName('name')[0];
+    let inputAge = document.getElementsByClassName('age')[0];
+
+    //button
+    let btn = document.getElementsByClassName('btn')[0];
+
+    //
+    let studentLabel = document.getElementsByClassName('student-list')[0]
+
+    //按钮提交
+    function submit() {
+        let selectorGender = document.getElementsByClassName('gender')[0];
+        let genderIndex = selectorGender.selectedIndex;
+        let gender = selectorGender.options[genderIndex];
+        let genderValue = gender.value;
+
+        let selectorMajor = document.getElementsByClassName('major')[0];
+        let majorIndex = selectorMajor.selectedIndex;
+        let major = selectorMajor.options[majorIndex];
+        let majorValue = major.value;
+        let nameValue = inputName.value;
+        let ageValue = inputAge.value;
+        let boxE = document.getElementsByClassName('box')
+        for (let i = boxE.length; i >= 0; i--) {
+            if (boxE[i]) {
+                boxE[i].remove()
+            }
+        }
+        const url = 'http://localhost:3000/button'
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {
+                name: nameValue,
+                age: ageValue,
+                gender: genderValue,
+                major: majorValue
+            },
+            success: (result) => {
+                if (result.status === 'success') {
+                    $('.student-list').html('')
+
+                    let html = ''
+
+                    result
+                        .students
+                        .forEach((item) => {
+                            if (item.gender == '1') {
+                                item.gender = '男'
+                            } else {
+                                item.gender = '女'
+                            }
+                            html += `<div><span>${item.name} ${item.gender} ${item.age}岁 学习${item.major}</span></div>`
+                        })
+                    $('.student-list').html(html)
+                    alert('存入成功')
+                } else {
+
+                    alert(result.message)
+                }
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        })
+    }
+
+    btn.onclick = submit;
+
+    let selectGender = document.getElementsByClassName('select-gender')[0]
+
+    function change() {
+        let Index = selectGender.selectedIndex
+        let GenderValue = selectGender.options[Index]
+        let Gender = GenderValue.value;
+        console.log(Gender)
+    }
+
+    selectGender.onchange = change;
+</script>

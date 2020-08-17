@@ -1,0 +1,86 @@
+
+const services = require('../services/index')
+const connection = require('../models/connection/index')
+const _ = require('lodash')
+
+connection.initConnection()
+
+async function control(ctx, next) {
+    const { name, age, gender, major } = ctx.request.body
+    let data = {
+        name,
+        gender,
+        age,
+        major
+    }
+
+
+
+    ctx.response.body = {
+        status: 'success'
+    }
+
+}
+
+async function addLogin(ctx, next) {
+    let students = await services.getStudents()
+    _.map(students, (item) => {
+        if (item.gender == '1') {
+            item.gender = '男'
+        } else {
+            item.gender = '女'
+        }
+    })
+    ctx.state = {
+        students
+    }
+    await ctx.render('index', ctx.state)
+}
+
+async function addStudent(ctx, next) {
+    const data = ctx.request.body
+    let result = await services.addStudent(data)
+    result.students = await services.getStudents()
+    ctx.response.body = result
+}
+
+module.exports = {
+    addLogin,
+    addStudent
+}
+
+
+
+// $('.student-list').html('')
+
+// let html = ''
+
+// result
+//     .students
+//     .forEach((item) => {
+//         if (item.gender == '1') {
+//             item.gender = '男'
+//         } else {
+//             item.gender = '女'
+//         }
+//         html += `<div><span>${item.name} ${item.gender} ${item.age}岁 学习${item.major}</span></div>`
+//     })
+// $('.student-list').html(html)
+// function change() {
+//     let Index = selectGender.selectedIndex
+//     let GenderValue = selectGender.options[Index]
+//     let Gender = GenderValue.value;
+//     $.ajax({
+//         type: "post",
+//         url: "",
+//         data: {
+//             gender: GenderValue
+//         },
+//         success: (result) => {
+//             console.log(result)
+//         },
+//         error: (error) => {
+//             console.log(error)
+//         }
+//     })
+// selectGender.onchange = change;
