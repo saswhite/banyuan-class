@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        input {
+            outline: none;
+            width: 200px;
+            height: 30px;
+            font-size: 24px;
+        }
+
+        .content {
+            width: 200px;
+            height: 300px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" class="search">
+        <div class="content"></div>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+<script>
+    let input = document.getElementsByClassName('search')[0]
+    let content = document.getElementsByClassName('content')[0]
+
+    let oData = ['123', '222', '1213', '121']
+
+    input.onkeyup = _.debounce(() => {
+        let value = input.value
+        let data = []
+        let html = ''
+        if (value) {
+            content.style.display = 'block'
+            oData.forEach((item => {
+
+                if (_.includes(item, value)) {
+                    data.push(item)
+                }
+
+            }))
+            for (let i = 0; i < data.length; i++) {
+                html += '<div>' + data[i] + '</div>'
+            }
+            content.innerHTML = html
+            console.log(data)
+        } else {
+            content.style.display = 'none'
+        }
+
+
+
+    }, 500)
+
+
+
+
+</script>
+
+</html>
