@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>baidu-m</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+        /* public */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        input,
+        button {
+            outline: none;
+            border: none;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .search-input {
+            height: 44px;
+            flex: 1;
+            border: 1px solid black;
+            box-sizing: border-box;
+            border-right: 1px solid #ddd;
+            padding-left: 5px;
+        }
+
+        .search-input::placeholder {
+            color: #cdcdcd
+        }
+
+        .search-button {
+            width: 81px;
+            height: 44px;
+            border: 1px solid black;
+            border-left: none;
+            font-weight: 700;
+            color: #38f;
+            background-color: #fff;
+        }
+
+        .icon {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .fa-microphone {
+            margin-right: 5px;
+            position: absolute;
+            right: 50px;
+        }
+
+        .fa-camera {
+            position: absolute;
+            right: 10px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .dot {
+            position: absolute;
+            top: 3px;
+            right: -4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #f44545;
+        }
+
+
+
+        .nav-left-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-right-icon1 {
+            height: 23px;
+            margin-right: 18px;
+        }
+
+        .nav-right-icon2 {
+            width: 16px;
+        }
+
+        .nav-right-link {
+            position: relative;
+        }
+
+        .nav-right-link::after {
+            content: "";
+            border: none;
+            display: inline-block;
+            width: 42px;
+            height: 42px;
+            background: url(https://search-operate.cdn.bcebos.com/1ad251313182977fcb4289e02f4c24b9.png) center/ cover;
+            position: absolute;
+            top: -12px;
+            right: 40px;
+        }
+
+        .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .img {
+            width: 180px;
+            height: 57px;
+        }
+
+        /* content */
+        .content {
+            margin: 17.34px 16px 5.4px 16px;
+            margin-top: 17.34px;
+        }
+
+
+        .content-txt-title {
+            font-size: 18px;
+            line-height: 23px;
+            font-weight: 400;
+        }
+
+        .content-txt-link {
+            display: block;
+            padding: 5.4px 0;
+        }
+
+        .icon-hot {
+            font-size: 13px;
+            color: #ec4345;
+            margin-right: 8px;
+        }
+
+        .domainName {
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="nav">
+        <div class="nav-left">
+            <img src="https://m.baidu.com/se/static/wiseatom/personalcenter/assets/img/hanbaobao_04adf60.png"
+                class="nav-left-icon">
+        </div>
+        <div class="nav-right">
+
+            <a href="#" class="nav-right-link">
+                <img src="https://search-operate.cdn.bcebos.com/35fadcf22cb6b012afd989871260a4ab.png"
+                    class="nav-right-icon1">
+                <img src="https://m.baidu.com/bdlogo/squareicon_e582f4c48e93901e747536ad982e030d.png"
+                    class="nav-right-icon2">
+                <div class=dot></div>
+            </a>
+
+        </div>
+    </div>
+    <div class="img-container">
+        <img src="https://www.baidu.com/img/flexible/logo/plus_logo_web.png" alt="百度一下,你就知道" class="img">
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="请输入搜索关键词" class="search-input">
+        <div class="icon">
+            <i class="fa fa-microphone" aria-hidden="true"></i>
+            <div style="color: #eee; position: absolute; right: 39px;">|</div>
+            <i class="fa fa-camera" aria-hidden="true"></i>
+        </div>
+        <button class="search-button">百度一下</button>
+    </div>
+    <!-- content -->
+    <div class="content">
+        <div class="content-txt-box">
+            <a href="#" class="content-txt-link">
+                <div class="content-txt-title">
+                    微视频 ｜ 时刻准备着
+                </div>
+                <div class="content-txt-p">
+                    <span class="icon-hot">置顶</span>
+                    <span class="domainName">人民日报</span>
+                </div>
+            </a>
+        </div>
+        <div class="content-txt-box">
+            <a href="#" class="content-txt-link">
+                <div class="content-txt-title">
+                    办好思政课 讲好思政课
+                </div>
+                <div class="content-txt-p">
+                    <span class="icon-hot">置顶</span>
+                    <span class="domainName">央视网新闻</span>
+                </div>
+            </a>
+        </div>
+        <div class="content-txt-box">
+            <a href="#" class="content-txt-link">
+                <div class="content-txt-title">
+                    勒门巴民族乡的边境生活是这样的
+                </div>
+                <div class="content-txt-p">
+                    <span class="domainName">人民网</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

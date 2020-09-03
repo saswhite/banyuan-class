@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            姓名
+            <input type="text" class="name" />
+        </div>
+
+        <div>
+            性别
+            <select class=" gender">
+                <option value="1">男</option>
+                <option value="0">女</option>
+            </select>
+        </div>
+        <div>
+
+            年龄
+            <input type=" text" class="age" />
+        </div>
+
+        <div>
+            班级
+            <select class="subject">
+                <option value="web">web</option>
+                <option value="java">java</option>
+            </select>
+        </div>
+
+        <div class="content"></div>
+    </div>
+
+    <script>
+        let html = ''
+        window.onload = () => {
+            let student = get('students')
+            if (student.name && student.age && student.gender && student.subject) {
+                if (students.gender) {
+                    genderString = '男'
+                } else {
+                    genderString = '女'
+                }
+
+                if (students.subject) {
+                    subjectString = 'web'
+                } else {
+                    subjectString = 'java'
+                }
+                html = '<span>' + student.name + ' </span>' + '<span>性别' + genderString + ' </span>' + '<span>' + student.age + '岁 </span>' + '<span>学习' + subjectString + ' </span>'
+                content.innerHTML = html
+                if (student.name) {
+                    nameEle.value = student.name
+                }
+                if (student.age) {
+                    ageEle.value = student.age
+                }
+                if (student.gender) {
+                    genderSelect.selectedIndex = student.gender
+                }
+                if (student.subject) {
+                    subjectSelect.selectedIndex = student.subject
+                }
+
+            } else {
+                content.innerHTML = ''
+            }
+        }
+
+        let content = document.getElementsByClassName('content')[0]
+        let nameEle = document.getElementsByClassName('name')[0]
+        let genderSelect = document.getElementsByClassName('gender')[0]
+
+        let ageEle = document.getElementsByClassName('age')[0]
+        let subjectSelect = document.getElementsByClassName('subject')[0]
+
+
+        let students = {}
+
+        let genderString = ''
+
+        let subjectString = ''
+
+        nameEle.onfocus = () => {
+            let name = nameEle.value
+            if (name) {
+                students.name = name
+                set('students', students)
+            }
+        }
+
+        ageEle.onfocus = () => {
+            let age = ageEle.value
+            if (age) {
+                students.age = age
+                set('students', students)
+            }
+        }
+
+        genderSelect.onchange = () => {
+            students.gender = genderSelect.selectedIndex
+            set('students', students)
+        }
+
+        subjectSelect.onchange = () => {
+            students.subject = subjectSelect.selectedIndex
+            set('students', students)
+        }
+
+        function set(key, value) {
+            localStorage.setItem(key, JSON.stringify(value))
+        }
+
+        function get(key) {
+            return JSON.parse(localStorage.getItem(key))
+        }
+    </script>
+</body>
+
+</html>
