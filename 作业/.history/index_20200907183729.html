@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <tr>
+                <th></th>
+                <th>姓名</th>
+                <th>数学</th>
+                <th>语文</th>
+                <th>英语</th>
+                <th>地理</th>
+                <th>历史</th>
+                <th>总分</th>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let app = {
+        data: {
+            list: [
+                {
+                    name: '肖锋',
+                    score: [{
+                        math: 99, chinese: 100, english: 100, geography: 99, history: 98
+                    }],
+                    allCount: 496
+                },
+                {
+                    name: '安澜',
+                    score: [{
+                        math: 90, chinese: 98, english: 89, geography: 96, history: 100
+                    }],
+                    allCount: 473
+                },
+                {
+                    name: '路小北',
+                    score: [{
+                        math: 88, chinese: 87, english: 77, geography: 86, history: 78
+                    }],
+                    allCount: 416
+                },
+                {
+                    name: '许巍',
+                    score: [{
+                        math: 39, chinese: 40, english: 76, geography: 90, history: 59
+                    }],
+                    allCount: 304
+                },
+            ]
+        }
+    }
+    let vm = new Vue({
+        render: h => h(app)
+    }).$mount('#app')
+</script>
+
+</html>

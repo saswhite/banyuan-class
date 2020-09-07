@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <th>
+                <tr></tr>
+                <tr>姓名</tr>
+                <tr>数学</tr>
+                <tr>语文</tr>
+                <tr>英语</tr>
+                <tr>地理</tr>
+                <tr>历史</tr>
+                <tr></tr>
+            </th>
+        </table>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let app = {
+
+    }
+    let vm = new Vue({
+        render: h => h(app)
+    }).$mount('#app')
+</script>
+
+</html>

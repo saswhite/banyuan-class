@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <tr>
+                <th></th>
+                <th>姓名</th>
+                <th>数学</th>
+                <th>语文</th>
+                <th>英语</th>
+                <th>地理</th>
+                <th>历史</th>
+                <th>总分</th>
+            </tr>
+            <template v-for="item in sortByAllCount">
+                <tr>
+                    <td>
+                        <img src="./第一名.jpg" alt="">
+                    </td>
+                    <td>
+                        {{ item.name }}
+                    </td>
+                    <template v-for="score in list">
+                        <template v-for="itemScore in score">
+                            <td>{{ itemScore.math }}</td>
+                            <td>{{ itemScore.chinese }}</td>
+                            <td>{{ itemScore.english }}</td>
+                            <td>{{ itemScore.geography }}</td>
+                            <td>{{ itemScore.history }}</td>
+                        </template>
+                    </template>
+                    <td></td>
+                </tr>
+            </template>
+
+        </table>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    function sortByKey(array, key) {
+        return array.sort((a, b) => {
+            let x = a[key]
+            let y = b[key]
+            return (x < y) ? -1 : ((x > y) ? 1 : 0)
+        })
+    }
+
+    let app = {
+        template: ``,
+        data: {
+            list: [
+                {
+                    name: '肖锋',
+                    score: [{
+                        math: 99, chinese: 100, english: 100, geography: 99, history: 98
+                    }],
+                    allCount: 496
+                },
+                {
+                    name: '安澜',
+                    score: [{
+                        math: 90, chinese: 98, english: 89, geography: 96, history: 100
+                    }],
+                    allCount: 473
+                },
+                {
+                    name: '路小北',
+                    score: [{
+                        math: 88, chinese: 87, english: 77, geography: 86, history: 78
+                    }],
+                    allCount: 416
+                },
+                {
+                    name: '许巍',
+                    score: [{
+                        math: 39, chinese: 40, english: 76, geography: 90, history: 59
+                    }],
+                    allCount: 304
+                },
+            ],
+            computed: {
+                sortByAllCount: function () {
+                    return sortByKey(this.list, 'allCount')
+                }
+            },
+        }
+    }
+    let vm = new Vue({
+        render: h => h(app)
+    }).$mount('#app')
+</script>
+
+</html>

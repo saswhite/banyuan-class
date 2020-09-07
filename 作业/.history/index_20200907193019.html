@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score</title>
+    <style>
+        .img img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .block {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+
+        .th {
+            margin: 10px 0;
+        }
+
+        .th>span {
+            margin-right: 20px;
+        }
+
+        .tr {
+            margin: 10px 0;
+        }
+
+        .tr>span {
+            margin-right: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // function sortByKey(array, key) {
+    //     return array.sort((a, b) => {
+    //         let x = a[key]
+    //         let y = b[key]
+    //         return (x < y) ? 1 : ((x > y) ? -1 : 0)
+    //     })
+    // }
+
+    let app = new Vue({
+        el: '#app',
+        template: `<div>
+            <div class="th">
+                <span></span>
+                <span>姓名</span>
+                <span>数学</span>
+                <span>语文</span>
+                <span>英语</span>
+                <span>地理</span>
+                <span>历史</span>
+                <span>总分</span>
+            </div>
+            <template v-for="(item,index) in list">
+                <div class="tr">
+                    <span class="img">
+                        <img src="./第一名.jpg" alt="" v-if="index == 0">
+                        <img src="./第二名.jpeg" alt="" v-else-if="index == 1">
+                        <img src="./第三名.jpeg" alt="" v-else-if="index == 2">
+                        <span v-else>
+                            <span class="block">
+                                
+                            </span>
+                        </span>
+                        
+                    </span>
+                    <span>
+                        {{ item.name }}
+                    </span>
+                        <template v-for="itemScore in item.score">
+                            <span>{{ itemScore.math }}</span>
+                            <span>{{ itemScore.chinese }}</span>
+                            <span>{{ itemScore.english }}</span>
+                            <span>{{ itemScore.geography }}</span>
+                            <span>{{ itemScore.history }}</span>
+                        </template>
+                    
+                    <span>
+                        {{ item.allCount }}
+                    </span>
+                </div>
+            </template>
+
+        </div>`,
+        data: {
+            list: [
+                {
+                    name: '肖锋',
+                    score: [{
+                        math: 99, chinese: 100, english: 100, geography: 99, history: 98
+                    }],
+                    allCount: 496
+                },
+                {
+                    name: '安澜',
+                    score: [{
+                        math: 90, chinese: 98, english: 89, geography: 96, history: 100
+                    }],
+                    allCount: 473
+                },
+                {
+                    name: '路小北',
+                    score: [{
+                        math: 88, chinese: 87, english: 77, geography: 86, history: 78
+                    }],
+                    allCount: 416
+                },
+                {
+                    name: '许巍',
+                    score: [{
+                        math: 39, chinese: 40, english: 76, geography: 90, history: 59
+                    }],
+                    allCount: 304
+                },
+            ]
+
+        },
+        // computed: {
+        //     sortByAllCount: function () {
+        //         return sortByKey(this.list, 'allCount')
+        //     }
+        // },
+    })
+</script>
+
+</html>
