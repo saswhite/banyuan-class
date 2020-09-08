@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>food</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <template v-for="item in list">
+                <div class="food">
+                    <span class="title">{{item.name}}</span>
+                    <span class="price"></span>
+                </div>
+            </template>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: "#app",
+        data() {
+            return {
+                list: [
+                    { name: '香蕉', price: 10, count: 1 },
+                    { name: '苹果', price: 20, count: 1 },
+                    { name: '榴莲', price: 30, count: 1 },
+                    { name: '葡萄', price: 50, count: 1 },
+                ]
+            }
+        }
+    })
+</script>
+
+</html>

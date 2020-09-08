@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>food</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <template v-for="(item,index) in list">
+                <div class="food">
+                    <span class="title">{{item.name}}</span>
+                    <span class="price">¥{{item.price}}</span>
+                    <button class="minus" @click=" minus(item)">-</button>
+                    <span class="count">{{ item.count }}</span>
+                    <button class="minus" @click="add(item)">+</button>
+                </div>
+
+
+            </template>
+
+            <div class="allCount">{{allCount}}</>
+
+
+            </div>
+        </div>
+</body>
+<script src=" https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: "#app",
+        data() {
+            return {
+                list: [
+                    { name: '香蕉', price: 10, count: 1 },
+                    { name: '苹果', price: 20, count: 1 },
+                    { name: '榴莲', price: 30, count: 1 },
+                    { name: '葡萄', price: 50, count: 1 },
+                ],
+                allPrice: 0
+            }
+        },
+        methods: {
+            add(obj) {
+                obj.count++
+                if (obj.count > 4) {
+                    obj.count = 4
+                    alert("没有库存")
+                }
+            },
+            minus(obj) {
+                obj.count--
+                if (obj.count < 1) {
+                    obj.count = 1
+                    alert("不能再少了")
+                }
+            },
+        },
+        computed: {
+            allCount() {
+                this.list.array.forEach(item => {
+                    this.allPrice += item.count * item.price
+                });
+                return this.allPrice
+
+            }
+        },
+    })
+</script>
+
+</html>
