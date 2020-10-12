@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        .container {
+            position: relative;
+            max-width: 500px;
+            height: 500px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: solid 1px #f3f3f3;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px #999;
+        }
+
+        .li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f3f3f3;
+            padding: 10px 30px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .all-price {
+            width: 200px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 100px;
+            text-align: left;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .pro-title {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .pro-price {
+            font-size: 16px;
+            color: #333;
+            padding-right: 20px;
+        }
+
+        .pro-right {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .pro-right img {
+            width: 50px;
+            height: 30px;
+            position: absolute;
+            right: -46px;
+            top: -14px;
+            transform: rotate(25deg);
+        }
+
+        /** 右侧按钮 */
+        .btn-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn1 {
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            padding: 0 0 0 7px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .btn2 {
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            padding: 0 7px 0 0;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .pro-num {
+            width: 20px;
+            line-height: 30px;
+            background-color: #333;
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            height: 30px;
+            border: none;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="example">
+
+    </div>
+
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    list: [
+                        { id: 'dcaf0261-059a-43ea-8d08-cf90600bca02', name: '香蕉', price: 10, count: 3 },
+                        { id: '65a909e8-55c9-4695-a46b-bac2c7abe3be', name: '苹果', price: 20, count: 1 },
+                        { id: '8b6b1c29-c1bc-49a3-824b-6d5950528b9b', name: '榴莲', price: 30, count: 4 },
+                        { id: '4662f88b-9087-41a0-8e87-2fe23cca2e0a', name: '葡萄', price: 50, count: 1 }
+                    ]
+                }
+            }
+
+            item = () => {
+                return this.state.list.map(item => {
+                    return (
+                        <div className="li" key={item.id}>
+                            <p className="pro-title">{item.name}</p>
+                            <div className="pro-right">
+                                <p className="pro-price">￥：{item.price}</p>
+                                <div className="btn-box">
+                                    <button className="btn1" onClick={() => { this.minus(item.id) }}>-</button>
+                                    <span className="pro-num">{item.count}</span>
+                                    <button className="btn2" onClick={() => { this.add(item.id) }}>+</button>
+                                </div>
+                            </div >
+                        </div >
+                    )
+                })
+            }
+
+            price = () => {
+                return this.state.list.reduce((sum, item) => {
+                    return sum + item.price * item.count
+                }, 0)
+            }
+
+            add = (id) => {
+                let List = this.state.list.map(item => {
+                    if (item.id == id) {
+                        if (item.count < 4) {
+                            return {
+                                ...item, count: item.count + 1
+                            }
+                        } else {
+                            alert('没有库存了')
+                            return {
+                                ...item, count: 4
+                            }
+                        }
+                    } else {
+                        return item
+                    }
+                })
+                this.setState({
+                    list: List
+                })
+            }
+
+
+            minus = (id) => {
+                let List = this.state.list.map(item => {
+                    if (item.id == id) {
+                        if (item.count > 0) {
+                            return {
+                                ...item, count: item.count - 1
+                            }
+                        } else {
+                            alert('不能再减了')
+                            return {
+                                ...item, count: 0
+                            }
+                        }
+                    } else {
+                        return item
+                    }
+                })
+                this.setState({
+                    list: List
+                })
+            }
+
+            render = () => {
+                return (
+                    <div>
+                        <div className="container">
+                            <Menu item={this.item} />
+                        </div>
+                        <div className="container">
+                            <Cart item={this.item} price={this.price} />
+                        </div>
+                    </div >
+                )
+            }
+        }
+
+        class Menu extends React.Component {
+            constructor() {
+                super()
+            }
+
+            render = () => {
+                return (
+                    <div>
+                        {this.props.item()}
+                    </div>
+                )
+            }
+        }
+
+
+        class Cart extends React.Component {
+            constructor() {
+                super()
+            }
+
+            render = () => {
+                return (
+                    <div>
+                        {this.props.item()}
+                        <div>
+                            <p className="all-price">总价格：{this.props.price()}</p>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('example')
+        );
+    </script>
+</body>
+
+</html>

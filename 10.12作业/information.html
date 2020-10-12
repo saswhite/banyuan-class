@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="example">
+
+    </div>
+    <script type="text/babel">
+
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    name: "",
+                    age: "",
+                    class: "",
+                    flagName: false,
+                    flagAge: false,
+                    flagDisabled: true
+                }
+            }
+
+            setName = (e) => {
+                this.setState({
+                    name: e.target.value
+                })
+            }
+
+            judgeName = (e) => {
+                let paren = /[\u4e00-\u9fa5]/g
+                let flag = paren.test(e.target.value)
+                this.setState({
+                    flagName: flag
+                }, () => {
+                    if (!this.state.flagName) {
+                        alert("姓名输入错误，必须为中文字符！")
+                    } else {
+                        this.judgeDisabled()
+                    }
+                })
+
+            }
+
+            setAge = (e) => {
+                this.setState({
+                    age: e.target.value
+                })
+            }
+
+            judgeAge = (e) => {
+                let age = parseInt(e.target.value)
+
+                if (age >= 0 && age <= 120) {
+                    this.setState({
+                        flagAge: true
+                    })
+                    this.judgeDisabled()
+                } else {
+                    if (!this.state.flagAge) {
+                        alert("年龄输入错误，必须是0到120岁之间的数字！")
+                    }
+                }
+
+            }
+
+
+            setClass = (e) => {
+                this.setState({
+                    class: e.target.value
+                })
+            }
+
+            submit = () => {
+                console.log(this.state.name + ' 年龄' + this.state.age + '岁 主修课程为' + this.state.class)
+            }
+
+
+            judgeDisabled = () => {
+                if (this.state.flagName && this.state.flagAge && this.state.class) {
+                    this.setState({
+                        flagDisabled: false
+                    })
+                }
+            }
+
+            render = () => {
+                return (
+                    <div className="container">
+                        <h3>用户信息:</h3>
+                        <div className="inputBox">
+                            <span>姓名：</span>
+                            <input type="text" value={this.state.name} onChange={this.setName} onBlur={this.judgeName} />
+                        </div>
+                        <div className="inputBox">
+                            <span>年龄：</span>
+                            <input type="text" value={this.state.age} onChange={this.setAge} onBlur={this.judgeAge} />
+                        </div>
+                        <div className="inputBox">
+                            <span>主修课程：</span>
+                            <input type="text" value={this.state.class} onChange={this.setClass} onBlur={this.judgeDisabled} />
+                        </div>
+
+                        <div>
+                            <button disabled={this.state.flagDisabled} onClick={this.submit} >提交</button>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById("example")
+        )
+    </script>
+</body>
+
+</html>
