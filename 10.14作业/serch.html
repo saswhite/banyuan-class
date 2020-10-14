@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+
+
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .search-input {
+            width: 400px;
+        }
+
+        .search-result {
+            width: 400px;
+            height: 400px;
+            border: 1px black solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="example">
+
+    </div>
+
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    isShow: false,
+                    searchValue: "",
+                    searchList: [],
+                    searchData: ['isen', 'web', 'banyuan', 'work', 'react', 'vue']
+                }
+                this.handleSearch = _.debounce(() => {
+                    if (this.state.searchValue) {
+                        this.renderData()
+                        this.setState({
+                            isShow: true
+                        })
+                    } else {
+                        this.setState({
+                            searchList: []
+                        })
+                    }
+
+                }, 500);
+            }
+
+            debounceShow = (e) => {
+                this.handleSearch()
+                if (!this.state.searchValue) {
+                    this.setState({
+                        isShow: false
+                    })
+                }
+            }
+
+            renderData = () => {
+                let sortList = []
+                this.state.searchData.sort((next, pre) => {
+                    if (next.length > pre.length) {
+                        return 1
+                    } else if (next.length < pre.length) {
+                        return -1
+                    } else {
+                        return 0
+                    }
+                }).map(item => {
+                    if (_.includes(item, this.state.searchValue)) {
+                        sortList.push(<div key={uuidv4()}>{item}</div>)
+                        return (
+                            <div key={uuidv4()}>{item}</div>
+                        )
+                    }
+                })
+
+                this.setState({
+                    searchList: sortList
+                })
+            }
+
+            renderSearch = (e) => {
+                this.setState({
+                    searchValue: e.target.value,
+                })
+            }
+
+            render = () => {
+                return (
+                    <div>
+                        <input type="text"
+                            className="search-input"
+                            value={this.state.searchValue}
+                            onChange={(e) => {
+                                this.renderSearch(e)
+                                this.debounceShow(e)
+                            }} />
+                        {this.state.searchList.length > 0 ? <div className="search-result">
+                            <div>{this.state.searchList}</div>
+                        </div> : null}
+                    </div>
+                )
+            }
+        }
+
+
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('example')
+        )
+    </script>
+</body>
+
+</html>

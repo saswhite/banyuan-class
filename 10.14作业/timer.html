@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example">
+
+    </div>
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    data: {
+                        selectValue: "timer1",
+                        stepValue: "",
+                        timeValue: "",
+                        isSubmit: false
+                    }
+                }
+            }
+
+            render() {
+                return (
+                    <div>
+                        <div>控制器：</div>
+                        <select value={this.state.data.selectValue}
+                            onChange={
+                                (e) => {
+                                    this.setState({
+                                        data: {
+                                            ...this.state.data,
+                                            selectValue: e.target.value
+                                        }
+                                    })
+                                }
+                            }
+                        >
+                            <option value="timer1">控制器1</option>
+                            <option value="timer2">控制器2</option>
+                        </select>
+
+                        <div>
+                            <span>step:</span>
+                            <input type="text" value={this.state.data.stepValue}
+                                onChange={
+                                    (e) => {
+                                        this.setState({
+                                            data: {
+                                                ...this.state.data,
+                                                stepValue: e.target.value
+                                            }
+                                        })
+                                    }
+                                }
+                            />
+                        </div>
+                        <div>
+                            <span>time:</span>
+                            <input type="text" value={this.state.data.timeValue}
+                                onChange={
+                                    (e) => {
+                                        this.setState({
+                                            data: {
+                                                ...this.state.data,
+                                                timeValue: e.target.value
+                                            }
+                                        })
+                                    }
+                                }
+                            />
+                        </div>
+                        <button onClick={
+                            () => {
+                                this.setState({
+                                    data: {
+                                        ...this.state.data,
+                                        isSubmit: !this.state.data.isSubmit
+                                    }
+                                })
+                            }
+                        }>修改</button>
+                        <Timer data={this.state.data} />
+                    </div >
+                )
+            }
+        }
+        class Timer extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    firstCount: 0,
+                    secondCount: 0,
+                    isClickFirst: false,
+                    isClickSecond: false,
+                    step: undefined,
+                    time: undefined,
+                    name: undefined
+                }
+            }
+
+
+            Interval = (name = "timer1", step = 1, time = 1000) => {
+                if (name == 'timer1') {
+                    this.firstTimer = setInterval(() => {
+                        this.setState({
+                            firstCount: this.state.firstCount + Number(step)
+                        })
+                    }, Number(time));
+                } else {
+                    this.secondTimer = setInterval(() => {
+                        this.setState({
+                            secondCount: this.state.secondCount + Number(step)
+                        })
+                    }, Number(time));
+                }
+            }
+
+            componentWillReceiveProps = (nextProps) => {
+                if (this.props.data.isSubmit != nextProps.data.isSubmit) {
+                    console.log('in')
+                    this.setState({
+                        step: nextProps.data.stepValue,
+                        time: nextProps.data.timeValue,
+                        name: nextProps.data.selectValue
+                    }, () => {
+                        if (this.state.isClickFirst || this.state.isClickSecond) {
+                            clearInterval(this.firstTimer)
+                            clearInterval(this.secondTimer)
+                            this.Interval(nextProps.data.selectValue, nextProps.data.stepValue, nextProps.data.timeValue)
+                        }
+                    })
+                }
+            }
+
+            click = (name) => {
+                if (name == 'timer1') {
+                    this.setState({
+                        isClickFirst: !this.state.isClickFirst
+                    })
+                    if (!this.state.isClickFirst) {
+                        this.Interval(this.state.name, this.state.step, this.state.time)
+                    } else {
+                        clearInterval(this.firstTimer)
+                    }
+                } else {
+                    this.setState({
+                        isClickSecond: !this.state.isClickSecond
+                    })
+                    if (!this.state.isClickSecond) {
+                        this.Interval(this.state.name, this.state.step, this.state.time)
+                    } else {
+                        clearInterval(this.secondTimer)
+                    }
+                }
+            }
+
+            render() {
+                return (
+                    <div>
+                        <div>定时器1:{this.state.firstCount}</div>
+                        <button onClick={() => { this.click('timer1') }}>{this.state.isClickFirst ? 'stop' : 'start'}</button>
+                        <div>定时器2:{this.state.secondCount}</div>
+                        <button onClick={() => { this.click('timer2') }}>{this.state.isClickSecond ? 'stop' : 'start'}</button>
+                    </div >
+                )
+            }
+        }
+
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('example')
+        )
+    </script>
+</body>
+
+</html>
