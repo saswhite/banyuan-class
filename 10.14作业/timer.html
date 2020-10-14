@@ -102,14 +102,15 @@
                     secondCount: 0,
                     isClickFirst: false,
                     isClickSecond: false,
-                    step: undefined,
-                    time: undefined,
-                    name: undefined
+                    firstStep: 1,
+                    firstTime: 1000,
+                    secondStep: 1,
+                    secondTime: 1000
                 }
             }
 
 
-            Interval = (name = "timer1", step = 1, time = 1000) => {
+            Interval = (name, step, time) => {
                 if (name == 'timer1') {
                     this.firstTimer = setInterval(() => {
                         this.setState({
@@ -127,18 +128,28 @@
 
             componentWillReceiveProps = (nextProps) => {
                 if (this.props.data.isSubmit != nextProps.data.isSubmit) {
-                    console.log('in')
-                    this.setState({
-                        step: nextProps.data.stepValue,
-                        time: nextProps.data.timeValue,
-                        name: nextProps.data.selectValue
-                    }, () => {
-                        if (this.state.isClickFirst || this.state.isClickSecond) {
-                            clearInterval(this.firstTimer)
-                            clearInterval(this.secondTimer)
-                            this.Interval(nextProps.data.selectValue, nextProps.data.stepValue, nextProps.data.timeValue)
-                        }
-                    })
+                    if (nextProps.data.selectValue == 'timer1') {
+                        this.setState({
+                            firstStep: nextProps.data.stepValue,
+                            firstTime: nextProps.data.timeValue,
+                        }, () => {
+                            if (this.state.isClickFirst) {
+                                clearInterval(this.firstTimer)
+                                this.Interval(nextProps.data.selectValue, nextProps.data.stepValue, nextProps.data.timeValue)
+                            }
+                        })
+                    } else {
+                        this.setState({
+                            secondStep: nextProps.data.stepValue,
+                            secondTime: nextProps.data.timeValue,
+                        }, () => {
+                            if (this.state.isClickSecond) {
+                                clearInterval(this.secondTimer)
+                                this.Interval(nextProps.data.selectValue, nextProps.data.stepValue, nextProps.data.timeValue)
+                            }
+                        })
+                    }
+
                 }
             }
 
@@ -148,7 +159,8 @@
                         isClickFirst: !this.state.isClickFirst
                     })
                     if (!this.state.isClickFirst) {
-                        this.Interval(this.state.name, this.state.step, this.state.time)
+
+                        this.Interval(name, this.state.firstStep, this.state.firstTime)
                     } else {
                         clearInterval(this.firstTimer)
                     }
@@ -157,7 +169,7 @@
                         isClickSecond: !this.state.isClickSecond
                     })
                     if (!this.state.isClickSecond) {
-                        this.Interval(this.state.name, this.state.step, this.state.time)
+                        this.Interval(name, this.state.secondStep, this.state.secondTime)
                     } else {
                         clearInterval(this.secondTimer)
                     }
